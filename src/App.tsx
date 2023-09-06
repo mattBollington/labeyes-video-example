@@ -7,7 +7,7 @@ import MainPane from "./components/ManePane/ManePane";
 
 const App: React.FC = () => {
   return (
-    <div className="appContainer">
+    <div className="appContainer" data-testid="app-container">
       <div className="contentContainer">
         <Sidebar />
         <div className="headerAndMainContainer">
