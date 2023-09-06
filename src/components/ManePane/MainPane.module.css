@@ -1,0 +1,17 @@
+.mainPane {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #f8f8f8;
+    position: relative;
+    padding: 0; 
+}
+
+.video {
+    width: 80%;  
+    height: auto; 
+    max-height: 100vh; 
+    margin: 50px;
+}
+
