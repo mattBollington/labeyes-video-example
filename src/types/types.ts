@@ -21,4 +21,3 @@ export interface HeaderProps {
   export interface ShowHideJsonProps {
     data: any;
   }
-  
