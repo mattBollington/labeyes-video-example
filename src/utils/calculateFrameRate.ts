@@ -10,3 +10,4 @@ export function calculateFrameRate(video: HTMLVideoElement | null, annotationDat
       callback(frameRate);
     };
   }
+  
