@@ -3,13 +3,8 @@ import { drawBoundingBoxes } from "../../utils/drawBoundingBoxes";
 import { Annotation } from "../../types/types";
 import { calculateFrameRate } from "../../utils/calculateFrameRate";
 import styles from "./VideoCanvas.module.css";
-
-interface VideoCanvasProps {
-  videoData: Blob | null;
-  annotationData: Annotation[] | null;
-  frameRate: number | null;
-  setFrameRate: React.Dispatch<React.SetStateAction<number | null>>;
-}
+import ShowHideJson from "../ShowHideJson/ShowHideJson";
+import { VideoCanvasProps } from "../../types/types";
 
 const VideoCanvas: React.FC<VideoCanvasProps> = ({
   videoData,
@@ -90,14 +85,15 @@ const VideoCanvas: React.FC<VideoCanvasProps> = ({
 
   return (
     <>
+      <div>Current Annotation: {JSON.stringify(currentAnnotation)}</div>
       <div className={styles.videoContainer}>
+        <ShowHideJson data={annotationData} />
         <video ref={videoRef} className={styles.video} controls>
           <source src={URL.createObjectURL(videoData)} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <canvas ref={canvasRef} className={styles.canvasOverlay}></canvas>
       </div>
-      <div>Current Annotation: {JSON.stringify(currentAnnotation)}</div>
     </>
   );
 };
