@@ -1,23 +1,19 @@
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { drawBoundingBoxes } from "../../utils/drawBoundingBoxes";
-import { Annotation } from "../../types/types";
 import { calculateFrameRate } from "../../utils/calculateFrameRate";
 import styles from "./VideoCanvas.module.css";
 import ShowHideJson from "../ShowHideJson/ShowHideJson";
 import { VideoCanvasProps } from "../../types/types";
 
 const VideoCanvas: React.FC<VideoCanvasProps> = ({
+  setCurrentAnnotation,
   videoData,
   annotationData,
-
   frameRate,
   setFrameRate,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [currentAnnotation, setCurrentAnnotation] = useState<Annotation | null>(
-    null
-  );
 
   useEffect(() => {
     const video = videoRef.current;
@@ -45,7 +41,7 @@ const VideoCanvas: React.FC<VideoCanvasProps> = ({
       );
       setCurrentAnnotation(currentAnno);
     }
-  }, [annotationData, frameRate]);
+  }, [annotationData, frameRate, setCurrentAnnotation]);
 
   const handleResize = useCallback(() => {
     const video = videoRef.current;
@@ -85,7 +81,6 @@ const VideoCanvas: React.FC<VideoCanvasProps> = ({
 
   return (
     <>
-      <div>Current Annotation: {JSON.stringify(currentAnnotation)}</div>
       <div className={styles.videoContainer}>
         <ShowHideJson data={annotationData} />
         <video ref={videoRef} className={styles.video} controls>

@@ -1,5 +1,6 @@
 export type BoundingBox = [number, number, number, number];
 export type Annotation = BoundingBox[];
+
 export interface HeaderProps {
     title?: string;
   }
@@ -9,6 +10,11 @@ export interface HeaderProps {
     annotationData: Annotation[] | null;
     frameRate: number | null;
     setFrameRate: React.Dispatch<React.SetStateAction<number | null>>;
+    setCurrentAnnotation: React.Dispatch<React.SetStateAction<Annotation | null>>;
+  }
+
+  export interface MainPaneProps {
+    setCurrentAnnotation: React.Dispatch<React.SetStateAction<Annotation | null>>;
   }
   
   export interface FetchDataResponse {
@@ -20,4 +26,8 @@ export interface HeaderProps {
   
   export interface ShowHideJsonProps {
     data: any;
+  }
+
+  export interface SidebarProps {
+    currentAnnotation: Annotation | null;
   }

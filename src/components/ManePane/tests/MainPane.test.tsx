@@ -1,10 +1,10 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import MainPane from "../ManePane";
 
 describe("<MainPane />", () => {
+  const mockSetCurrentAnnotation = jest.fn();
   it("renders without crashing", () => {
-    render(<MainPane />);
+    render(<MainPane setCurrentAnnotation={mockSetCurrentAnnotation} />);
     const videoFallbackText = screen.getByText(
       "Your browser does not support the video tag."
     );
@@ -12,14 +12,13 @@ describe("<MainPane />", () => {
   });
 
   it("renders the video element", () => {
-    render(<MainPane />);
+    render(<MainPane setCurrentAnnotation={mockSetCurrentAnnotation} />);
     const videoElement = screen.getByTestId("video-element");
     expect(videoElement).toBeInTheDocument();
   });
 
   it("accesses video source", () => {
-    // mock api call
-    render(<MainPane />);
+    render(<MainPane setCurrentAnnotation={mockSetCurrentAnnotation} />);
     const sourceElement = screen.getByTestId("video-source");
     expect(sourceElement).toHaveAttribute("src", "");
   });
