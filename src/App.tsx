@@ -12,7 +12,7 @@ const App: React.FC = () => {
         <Sidebar />
         <div className="headerAndMainContainer">
           <Header />
-          <MainPane videoSrc="https://reach-industries-candidate-tests.s3.eu-west-2.amazonaws.com/FrontendCandidateTest-FINAL.mp4" />
+          <MainPane />
         </div>
       </div>
     </div>

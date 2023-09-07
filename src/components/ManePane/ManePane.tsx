@@ -1,102 +1,62 @@
-import React, { useRef, useEffect, useState } from "react";
-import axios from "axios";
-import { scaleLinear } from "d3-scale";
+import { useRef, useEffect, useState, useCallback } from "react";
 import styles from "./MainPane.module.css";
+import useFetchData from "../../services/fetchData";
+import { drawBoundingBoxes } from "../../utils/drawBoundingBoxes";
+import { Annotation } from "../../types/types";
+import { calculateFrameRate } from "../../utils/calculateFrameRate";
 
-interface MainPaneProps {
-  videoSrc: string;
-}
-
-type Annotation = number[][];
-
-const ANNOTATION_API =
-  "https://reach-industries-candidate-tests.s3.eu-west-2.amazonaws.com/FrontendCandidateTest-FINAL.json";
-
-const loadAnnotations = async (): Promise<Annotation[]> => {
-  try {
-    const response = await axios.get(ANNOTATION_API);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching annotations", error);
-    return [];
-  }
-};
-
-const MainPane: React.FC<MainPaneProps> = ({ videoSrc }) => {
+const MainPane: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [annotations, setAnnotations] = useState<Annotation[]>([]);
   const [currentAnnotation, setCurrentAnnotation] = useState<Annotation | null>(
     null
   );
-
-  useEffect(() => {
-    loadAnnotations().then(setAnnotations);
-  }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    const canvas = canvasRef.current;
-
-    const handleResize = () => {
-      if (video && canvas) {
-        canvas.width = video.clientWidth;
-        canvas.height = video.clientHeight;
-      }
-    };
-
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [videoRef, canvasRef]);
+  const [frameRate, setFrameRate] = useState<number | null>(null);
+  const { videoData, annotationData, error, loading } = useFetchData();
 
   useEffect(() => {
     const video = videoRef.current;
+    calculateFrameRate(video, annotationData, setFrameRate);
+  }, [videoData, annotationData]);
+
+  const handleTimeUpdate = useCallback(() => {
+    const video = videoRef.current;
     const canvas = canvasRef.current;
 
-    const handleTimeUpdate = () => {
-      const video = videoRef.current;
-      const canvas = canvasRef.current;
+    if (!video || !canvas || !annotationData || !frameRate) return;
 
-      if (!video || !canvas) return;
+    const currentFrame = Math.floor(video.currentTime * frameRate);
+    const currentAnno = annotationData[currentFrame];
+    const ctx = canvas.getContext("2d");
+    if (ctx && currentAnno) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawBoundingBoxes(
+        ctx,
+        currentAnno,
+        video.videoWidth,
+        video.videoHeight,
+        canvas.width,
+        canvas.height
+      );
+      setCurrentAnnotation(currentAnno);
+    }
+  }, [annotationData, frameRate]);
 
-      const currentFrame = Math.floor(video.currentTime * 30);
-      const currentAnno = annotations[currentFrame];
-      const ctx = canvas.getContext("2d");
-      console.log(annotations.length);
-      if (ctx && currentAnno) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        const scaleX = scaleLinear()
-          .domain([0, video.videoWidth])
-          .range([0, video.clientWidth]);
-
-        const scaleY = scaleLinear()
-          .domain([0, video.videoHeight])
-          .range([0, video.clientHeight]);
-
-        for (let bbox of currentAnno) {
-          let [x, y, width, height] = bbox;
-
-          const overlayX = scaleX(x);
-          const overlayY = scaleY(y);
-          const overlayWidth = scaleX(width) - scaleX(0);
-          const overlayHeight = scaleY(height) - scaleY(0);
-
-          ctx.lineWidth = 2;
-          ctx.strokeStyle = "black";
-          ctx.strokeRect(overlayX, overlayY, overlayWidth, overlayHeight);
-        }
-
-        setCurrentAnnotation(currentAnno);
-      }
-    };
+  const handleResize = useCallback(() => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
 
     if (video && canvas) {
+      const rect = video.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      handleTimeUpdate();
+    }
+  }, [handleTimeUpdate]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
       video.addEventListener("timeupdate", handleTimeUpdate);
     }
 
@@ -105,7 +65,20 @@ const MainPane: React.FC<MainPaneProps> = ({ videoSrc }) => {
         video.removeEventListener("timeupdate", handleTimeUpdate);
       }
     };
-  }, [videoRef, canvasRef, annotations]);
+  }, [handleTimeUpdate]);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error loading data: {error.message}</div>;
+  if (!videoData || !annotationData) return null;
 
   return (
     <div className={styles.mainPane} data-testid="mainPane">
@@ -116,7 +89,11 @@ const MainPane: React.FC<MainPaneProps> = ({ videoSrc }) => {
           className={styles.video}
           controls
         >
-          <source data-testid="video-source" src={videoSrc} type="video/mp4" />
+          <source
+            data-testid="video-source"
+            src={URL.createObjectURL(videoData)}
+            type="video/mp4"
+          />
           Your browser does not support the video tag.
         </video>
         <canvas ref={canvasRef} className={styles.canvasOverlay}></canvas>
