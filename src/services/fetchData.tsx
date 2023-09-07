@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "../utils/api";
+import { Annotation } from "../types/types";
 
 const useFetchData = () => {
   const [videoData, setVideoData] = useState<Blob | null>(null);
-  const [annotationData, setAnnotationData] = useState<any[] | null>(null);
+  const [annotationData, setAnnotationData] = useState<Annotation[] | null>(
+    null
+  );
+
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 

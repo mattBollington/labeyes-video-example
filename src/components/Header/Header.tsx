@@ -1,8 +1,5 @@
 import styles from "./Header.module.css";
-
-interface HeaderProps {
-  title?: string;
-}
+import { HeaderProps } from "../../types/types";
 
 const Header: React.FC<HeaderProps> = ({
   title = "Reach Industries Frontend Assessment",
