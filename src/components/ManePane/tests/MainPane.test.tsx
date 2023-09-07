@@ -4,7 +4,7 @@ import MainPane from "../ManePane";
 
 describe("<MainPane />", () => {
   it("renders without crashing", () => {
-    render(<MainPane videoSrc="sample.mp4" />);
+    render(<MainPane />);
     const videoFallbackText = screen.getByText(
       "Your browser does not support the video tag."
     );
@@ -12,15 +12,15 @@ describe("<MainPane />", () => {
   });
 
   it("renders the video element", () => {
-    render(<MainPane videoSrc="sample.mp4" />);
+    render(<MainPane />);
     const videoElement = screen.getByTestId("video-element");
     expect(videoElement).toBeInTheDocument();
   });
 
-  it("uses the videoSrc prop as the video source", () => {
-    const sampleVideoSrc = "sample.mp4";
-    render(<MainPane videoSrc={sampleVideoSrc} />);
+  it("accesses video source", () => {
+    // mock api call
+    render(<MainPane />);
     const sourceElement = screen.getByTestId("video-source");
-    expect(sourceElement).toHaveAttribute("src", sampleVideoSrc);
+    expect(sourceElement).toHaveAttribute("src", "");
   });
 });

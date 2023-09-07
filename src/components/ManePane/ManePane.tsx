@@ -1,16 +1,25 @@
+import React, { useState } from "react";
 import styles from "./MainPane.module.css";
+import useFetchData from "../../services/fetchData";
+import VideoCanvas from "../VideoCanvas/VideoCanvas";
 
-interface MainPaneProps {
-  videoSrc: string;
-}
+const MainPane: React.FC = () => {
+  const [frameRate, setFrameRate] = useState<number | null>(null);
+  const { videoData, annotationData, error, loading } = useFetchData();
 
-const MainPane: React.FC<MainPaneProps> = ({ videoSrc }) => {
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error loading data: {error.message}</div>;
+
   return (
     <div className={styles.mainPane} data-testid="mainPane">
-      <video data-testid="video-element" className={styles.video} controls>
-        <source data-testid="video-source" src={videoSrc} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      {videoData && annotationData && (
+        <VideoCanvas
+          videoData={videoData}
+          annotationData={annotationData}
+          frameRate={frameRate}
+          setFrameRate={setFrameRate}
+        />
+      )}
     </div>
   );
 };
