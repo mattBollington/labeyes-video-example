@@ -12,3 +12,22 @@
     background-color: #f8f8f8;
     padding:0 10px;
 }
+
+@media (max-width: 600px) {
+    .contentContainer {
+      flex-direction: column;
+      padding-top: 0;
+    }
+    .headerAndMainContainer {
+      height: auto; 
+      padding: 0 5px;
+    }
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+    .headerAndMainContainer {
+      height: 50vh; 
+      max-height: 35vh;
+    }
+    
+}

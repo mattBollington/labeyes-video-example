@@ -18,3 +18,14 @@
     font-family: "Courier New", Courier, monospace;
   }
   
+
+@media (max-width: 600px) and (orientation: portrait) {
+  .jsonContainer {
+    position: absolute;
+    top: 40px;
+    border-radius: 5px;
+    width: 100px;
+    max-height: 66vh;
+  }
+    
+}
