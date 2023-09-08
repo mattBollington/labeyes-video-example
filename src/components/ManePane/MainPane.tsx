@@ -33,7 +33,7 @@ const MainPane: React.FC<MainPaneProps> = ({
   return (
     <div
       className="mainPane"
-      style={{ paddingTop: "15px" }}
+      style={{ paddingTop: "5px" }}
       data-testid="mainPane"
     >
       {videoData && annotationData && (
