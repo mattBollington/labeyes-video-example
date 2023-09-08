@@ -38,13 +38,11 @@ const Header: React.FC<{ annotationData: Annotation[] | null }> = ({
       <AppBar position="static" color="primary">
         <Box
           sx={{
+            margin: { md: "5px" },
             display: { xs: "block", md: "flex" },
             alignItems: "center",
             justifyContent: "space-between",
             paddingTop: { xs: "16px", md: "0px" },
-            "@media (orientation: landscape)": {
-              paddingTop: "16px",
-            },
           }}
         >
           <Typography
@@ -56,6 +54,7 @@ const Header: React.FC<{ annotationData: Annotation[] | null }> = ({
               whiteSpace: "nowrap",
               overflow: "hidden",
               textAlign: { xs: "center", md: "left" },
+              marginLeft: { xs: "16px", md: "32px" },
             }}
           >
             Reach Industries Frontend Assessment
