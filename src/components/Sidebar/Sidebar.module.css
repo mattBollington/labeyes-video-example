@@ -50,7 +50,7 @@
 
 @media (max-width: 600px) and (orientation: portrait) {
     .sidebar {
-      margin-top: 10vh;
+      margin-top: 20vh;
       height: 50vh; 
       max-height: 35vh;
       width:auto;
