@@ -114,7 +114,7 @@ const VideoCanvas: React.FC<VideoCanvasProps> = ({
   return (
     <>
       <div className={styles.videoContainer}>
-        <video ref={videoRef} className={styles.video} controls>
+        <video ref={videoRef} className={styles.video} playsInline controls>
           <source src={URL.createObjectURL(videoData)} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
