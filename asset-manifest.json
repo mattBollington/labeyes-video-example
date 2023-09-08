@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/labeyes-video-assessment/static/css/main.d61e2907.css",
+    "main.js": "/labeyes-video-assessment/static/js/main.8d336357.js",
+    "static/js/787.0b54e32f.chunk.js": "/labeyes-video-assessment/static/js/787.0b54e32f.chunk.js",
+    "index.html": "/labeyes-video-assessment/index.html",
+    "main.d61e2907.css.map": "/labeyes-video-assessment/static/css/main.d61e2907.css.map",
+    "main.8d336357.js.map": "/labeyes-video-assessment/static/js/main.8d336357.js.map",
+    "787.0b54e32f.chunk.js.map": "/labeyes-video-assessment/static/js/787.0b54e32f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d61e2907.css",
+    "static/js/main.8d336357.js"
+  ]
+}
