@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/labeyes-video-example/static/css/main.d61e2907.css",
-    "main.js": "/labeyes-video-example/static/js/main.c25da69f.js",
+    "main.css": "/labeyes-video-example/static/css/main.adbf6571.css",
+    "main.js": "/labeyes-video-example/static/js/main.ba334adc.js",
     "static/js/787.0b54e32f.chunk.js": "/labeyes-video-example/static/js/787.0b54e32f.chunk.js",
     "index.html": "/labeyes-video-example/index.html",
-    "main.d61e2907.css.map": "/labeyes-video-example/static/css/main.d61e2907.css.map",
-    "main.c25da69f.js.map": "/labeyes-video-example/static/js/main.c25da69f.js.map",
+    "main.adbf6571.css.map": "/labeyes-video-example/static/css/main.adbf6571.css.map",
+    "main.ba334adc.js.map": "/labeyes-video-example/static/js/main.ba334adc.js.map",
     "787.0b54e32f.chunk.js.map": "/labeyes-video-example/static/js/787.0b54e32f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d61e2907.css",
-    "static/js/main.c25da69f.js"
+    "static/css/main.adbf6571.css",
+    "static/js/main.ba334adc.js"
   ]
 }
