@@ -43,6 +43,7 @@ const Header: React.FC<{ annotationData: Annotation[] | null }> = ({
             alignItems: "center",
             justifyContent: "space-between",
             paddingTop: { xs: "16px", md: "0px" },
+            py: { xs: 0, md: 1 },
           }}
         >
           <Typography
@@ -51,6 +52,7 @@ const Header: React.FC<{ annotationData: Annotation[] | null }> = ({
             sx={{
               flexGrow: 1,
               padding: [1, 1, 0],
+              // fontSize: { xs: "1rem", md: "1.25rem" },
               whiteSpace: "nowrap",
               overflow: "hidden",
               textAlign: { xs: "center", md: "left" },
@@ -66,12 +68,12 @@ const Header: React.FC<{ annotationData: Annotation[] | null }> = ({
               alignItems: "center",
               justifyContent: { xs: "center", md: "flex-end" },
               flexWrap: "nowrap",
-              marginTop: { xs: 2, md: 0 },
               marginBottom: { xs: 2, md: 0 },
             }}
           >
             <Button
               variant="outlined"
+              size="small"
               onClick={handleDownload}
               sx={{ mx: 1, whiteSpace: "nowrap" }}
             >
@@ -81,6 +83,7 @@ const Header: React.FC<{ annotationData: Annotation[] | null }> = ({
               <Button
                 className={styles.container}
                 variant="outlined"
+                size="small"
                 onClick={toggleVisibility}
                 sx={{
                   mx: 1,

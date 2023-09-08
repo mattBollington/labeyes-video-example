@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import MainPane from "../ManePane";
+import MainPane from "../MainPane";
 
 describe("<MainPane />", () => {
   const mockSetCurrentAnnotation = jest.fn();
