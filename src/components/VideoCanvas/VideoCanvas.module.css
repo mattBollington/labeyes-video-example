@@ -1,9 +1,8 @@
 .videoContainer {
     position: relative;
     width: 100%; 
-  
     padding-top: 56.25%;
-    overflow: hidden;
+    margin-right: auto;
 }
 
 .video, .canvasOverlay {

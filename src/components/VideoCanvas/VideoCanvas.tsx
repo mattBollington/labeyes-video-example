@@ -2,7 +2,6 @@ import { useRef, useEffect, useCallback } from "react";
 import { drawBoundingBoxes } from "../../utils/drawBoundingBoxes";
 import { calculateFrameRate } from "../../utils/calculateFrameRate";
 import styles from "./VideoCanvas.module.css";
-import ShowHideJson from "../ShowHideJson/ShowHideJson";
 import { VideoCanvasProps } from "../../types/types";
 
 const VideoCanvas: React.FC<VideoCanvasProps> = ({
@@ -43,6 +42,21 @@ const VideoCanvas: React.FC<VideoCanvasProps> = ({
     }
   }, [annotationData, frameRate, setCurrentAnnotation]);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.addEventListener("loadedmetadata", handleTimeUpdate);
+      video.addEventListener("timeupdate", handleTimeUpdate);
+    }
+
+    return () => {
+      if (video) {
+        video.removeEventListener("loadedmetadata", handleTimeUpdate);
+        video.removeEventListener("timeupdate", handleTimeUpdate);
+      }
+    };
+  }, [handleTimeUpdate]);
+
   const handleResize = useCallback(() => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
@@ -77,12 +91,15 @@ const VideoCanvas: React.FC<VideoCanvasProps> = ({
     };
   }, [handleResize]);
 
+  if (!videoData || !annotationData) {
+    return <div>Error loading video or annotation data</div>;
+  }
+
   if (!videoData || !annotationData) return null;
 
   return (
     <>
       <div className={styles.videoContainer}>
-        <ShowHideJson data={annotationData} />
         <video ref={videoRef} className={styles.video} controls>
           <source src={URL.createObjectURL(videoData)} type="video/mp4" />
           Your browser does not support the video tag.
