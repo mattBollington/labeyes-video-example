@@ -91,6 +91,20 @@ const VideoCanvas: React.FC<VideoCanvasProps> = ({
     };
   }, [handleResize]);
 
+  useEffect(() => {
+    function handleFullScreenChange() {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+    }
+
+    document.addEventListener("fullscreenchange", handleFullScreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullScreenChange);
+    };
+  }, []);
+
   if (!videoData || !annotationData) {
     return <div>Error loading video or annotation data</div>;
   }
