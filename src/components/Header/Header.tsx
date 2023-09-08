@@ -62,7 +62,6 @@ const Header: React.FC<{ annotationData: Annotation[] | null }> = ({
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
-              overflowX: "auto",
               flexWrap: "nowrap",
             }}
           >
@@ -75,6 +74,7 @@ const Header: React.FC<{ annotationData: Annotation[] | null }> = ({
             </Button>
             <div className={styles.container}>
               <Button
+                className={styles.container}
                 variant="outlined"
                 onClick={toggleVisibility}
                 sx={{
