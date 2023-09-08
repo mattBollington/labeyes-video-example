@@ -15,6 +15,9 @@ export interface HeaderProps {
 
   export interface MainPaneProps {
     setCurrentAnnotation: React.Dispatch<React.SetStateAction<Annotation | null>>;
+    setAnnotationData: React.Dispatch<React.SetStateAction<Annotation[] | null>>; // Add this line
+    videoSource: string;
+    dataSource: string;
   }
   
   export interface FetchDataResponse {
@@ -30,4 +33,6 @@ export interface HeaderProps {
 
   export interface SidebarProps {
     currentAnnotation: Annotation | null;
+    setVideoSource: React.Dispatch<React.SetStateAction<string>>;
+    setDataSource: React.Dispatch<React.SetStateAction<string>>;
   }
