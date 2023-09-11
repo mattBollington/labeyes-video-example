@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
-import MainPane from "./components/ManePane/MainPane";
+import MainPane from "./components/MainPane/MainPane";
 import { Annotation } from "./types/types";
 
 const App: React.FC = () => {
