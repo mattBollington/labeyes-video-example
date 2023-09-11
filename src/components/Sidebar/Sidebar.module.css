@@ -57,3 +57,13 @@
       z-index: 1000;
     }
 }
+
+@media (max-height: 300px) and (orientation: portrait) {
+    .sidebar {
+      margin-top: 15vh;
+      height: 50vh; 
+      max-height: 35vh;
+      width:10px;
+      z-index: 1000;
+    }
+}
